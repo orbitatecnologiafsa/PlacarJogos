@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Placar</title>
+    <link rel="stylesheet" href="2.css">
+    <style>
+        *{
+            font-size: 30px;
+            font-weight: bold;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .team{
+            width: 50%;
+            margin-right: 15px;
+        }
+        .buttons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-direction: column;
+        }
+        .buttons button{
+            width: 100%;
+        }
+        .buttons button:last-child{
+            background-color: rgba(197, 17, 17, 0.784);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            margin: 15% auto;
+            border: 1px solid #888;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 50%;
+            font-size: 26px;
+        }
+        .modal-header{
+            width: 80%;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        #newGameForm {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="team">
+            <h2>Fluminense de Feira</h2>
+            <ul id="flu-players">
+                <li><input type="radio" name="player" value="joao-grilo"> Joao Grilo</li>
+                <li><input type="radio" name="player" value="alan-jr"> Alan Jr</li>
+                <li><input type="radio" name="player" value="cleyton"> Cleyton</li>
+                <li><input type="radio" name="player" value="deivinho"> Deivinho</li>
+                <li><input type="radio" name="player" value="elielton"> Elielton</li>
+                <li><input type="radio" name="player" value="elivelton"> Elivelton</li>
+                <li><input type="radio" name="player" value="felipe-recife"> Felipe Recife</li>
+                <li><input type="radio" name="player" value="felipe-rocha"> Felipe Rocha</li>
+                <li><input type="radio" name="player" value="gianlucas"> Gianlucas</li>
+                <li><input type="radio" name="player" value="igor-badio"> Igor Badio</li>
+                <li><input type="radio" name="player" value="jean"> Jean</li>
+                <li><input type="radio" name="player" value="kaique"> Kaique</li>
+                <li><input type="radio" name="player" value="kaynan"> Kaynan</li>
+                <li><input type="radio" name="player" value="leo-alves"> Leo Alves</li>
+                <li><input type="radio" name="player" value="luan"> Luan</li>
+                <li><input type="radio" name="player" value="mineiro"> Mineiro</li>
+                <li><input type="radio" name="player" value="pablo"> Pablo</li>
+            </ul>
+        </div>
+        <div class="team">
+            <h2 id="time2_nome">Time Adversario</h2>
+            <ul id="time2">
+                <li><input type="radio" name="player" value="time2-gol"> Pontuar gol</li>
+            </ul>
+        </div>
+    </div>
+    <div class="buttons">
+        <button id="propaganda-button" onclick="mostrarPropaganda()">Mostrar Propaganda</button>
+        <button onclick="fecharPropaganda()">Fechar Propaganda</button>
+        <button id="goal-button" onclick="addGoal()">Gol</button>
+        <button onclick="startFirstHalf()">Começar 1 tempo</button>
+        <button onclick="startSecondHalf()">Começar 2 tempo</button>
+        <button onclick="pauseGame()">Pausar Jogo</button>
+        <button onclick="resumeGame()">Continuar Jogo</button>
+        <button id="finalize-button" onclick="finalizeGame()">Finalizar Jogo</button>
+    </div>
+
+   
+    <div id="newGameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2>Criar Novo Jogo</h2>
+            </div>
+            <form id="newGameForm">
+                <label for="teamName">Nome do Time:</label>
+                <input type="text" id="teamName" name="teamName" required>
+                <label for="teamLogo">Logo do Time:</label>
+                <input type="file" id="teamLogo" name="teamLogo" accept="image/*" required>
+                <button type="button" onclick="createNewGame()">Criar Novo Jogo</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function addGoal() {
+            const selectedPlayer = document.querySelector('input[name="player"]:checked');
+            if (selectedPlayer) {
+                const playerName = selectedPlayer.value;
+                const team = selectedPlayer.closest('ul').id === 'flu-players' ? 'flu' : 'time2';
+                
+                const goalData = {
+                    team: team,
+                    player: playerName
+                };
+
+                // Armazena os dados do gol no localStorage
+                localStorage.setItem('goal', JSON.stringify(goalData));
+                
+                // Limpa a seleção do jogador
+                selectedPlayer.checked = false;
+            } else {
+                alert('Selecione um jogador.');
+            }
+        }
+
+        function resetGoal() {
+            localStorage.setItem('goal', null);
+        }
+        function startFirstHalf() {
+            localStorage.setItem('timerControl', 'startFirstHalf');
+        }
+
+        function startSecondHalf() {
+            localStorage.setItem('timerControl', 'startSecondHalf');
+        }
+
+        function pauseGame() {
+            localStorage.setItem('timerControl', 'pause');
+        }
+
+        function resumeGame() {
+            localStorage.setItem('timerControl', 'resume');
+        }
+
+        function mostrarPropaganda() {
+            if (!localStorage.getItem('propaganda')) {
+                localStorage.setItem('propaganda', 'true');
+            }
+        }
+
+        function fecharPropaganda() {
+            localStorage.setItem('propagandaFechada', 'true');
+        }
+
+        function finalizeGame() {
+            if (confirm('Tem certeza que deseja finalizar o jogo?')) {
+                localStorage.clear();
+                openModal();
+            } 
+        }
+
+        function openModal() {
+            document.getElementById('newGameModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('newGameModal').style.display = 'none';
+        }
+
+        function createNewGame() {
+            const teamName = document.getElementById('teamName').value;
+            const teamLogo = document.getElementById('teamLogo').files[0];
+
+            if (teamName && teamLogo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const teamData = {
+                        name: teamName,
+                        logo: e.target.result
+                    };
+
+                    localStorage.setItem('teamData', JSON.stringify(teamData));
+                    document.getElementById('time2_nome').textContent = teamName;
+                    closeModal();
+                    window.location.reload();
+                };
+                reader.readAsDataURL(teamLogo);
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        }
+
+        window.addEventListener('storage', (event) => {
+            if (event.key === 'goal') {
+                const goalData = JSON.parse(event.newValue);
+                localStorage.removeItem('goal');
+            } 
+
+            if (event.key === 'propaganda' && event.newValue === 'true') {
+                const propaganda = document.getElementById('propaganda');
+                propaganda.style.display = 'block';
+                const video = document.getElementById('propaganda-video');
+                video.play();
+
+                // Event listener para esconder a propaganda ao final do vídeo
+                video.addEventListener('ended', function() {
+                    propaganda.style.display = 'none';
+                });
+
+                // Limpa o localStorage após mostrar a propaganda
+                localStorage.removeItem('propaganda');
+            }
+
+            if (event.key === 'propagandaFechada' && event.newValue === 'true') {
+                const propaganda = document.getElementById('propaganda');
+                propaganda.style.display = 'none';
+                localStorage.removeItem('propagandaFechada');
+            }
+
+            if (event.key === 'timerControl') {
+                // Lógica para iniciar, pausar ou retomar o cronômetro
+                if (event.newValue === 'startFirstHalf') {
+                    localStorage.removeItem('timerControl');
+                    localStorage.setItem('startTimer', 'true');
+                } else if (event.newValue === 'startSecondHalf') {
+                    localStorage.removeItem('timerControl');
+                    localStorage.setItem('startSecondHalf', 'true');
+                } else if (event.newValue === 'pause') {
+                    pauseTimer();
+                } else if (event.newValue === 'resume') {
+                    resumeTimer();
+                }
+            }
+        });
+
+        // Funções para controlar o cronômetro
+        let intervalId;
+        let minutos = 0;
+        let segundos = 0;
+
+        function updateDisplay() {
+            document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+            document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+        }
+
+        function startTimer() {
+            intervalId = setInterval(() => {
+                segundos++;
+                if (segundos === 60) {
+                    minutos++;
+                    segundos = 0;
+                }
+                if (minutos === 45) {
+                    clearInterval(intervalId);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        function startSecondHalfTimer() {
+            intervalId = setInterval(() => {
+                segundos++;
+                if (segundos === 60) {
+                    minutos++;
+                    segundos = 0;
+                }
+                if (minutos === 90) {
+                    clearInterval(intervalId);
+                }
+                updateDisplay();
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+
+        function resumeTimer() {
+            if (minutos < 45) {
+                startTimer();
+            } else if (minutos >= 45 && minutos < 90) {
+                startSecondHalfTimer();
+            }
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('teamData')) {
+                const teamData = JSON.parse(localStorage.getItem('teamData'));
+                document.getElementById('time2_nome').textContent = teamData.name;
+                document.getElementById('time2_logo').src = teamData.logo;
+            }
+        }
+    </script>
+</body>
+</html>

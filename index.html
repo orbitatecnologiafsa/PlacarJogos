@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placar de Futebol</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="scoreboard">
+            <div class="header">
+                <h1>CAMPEONATO BAIANO SERIE B</h1>
+                <h2>2 RODADA - JOIA DA PRINCESA</h2>
+            </div>
+            <div class="teams">
+                <div class="team">
+                    <img src="./imagens/flu.png" alt="Logo Time 1" class="team-logo">
+                    <div class="team-info">
+                        <span class="team-name">Fluminense de Feira</span>
+                    </div>
+                </div>
+                <div class="contador">
+                    <p><span id="minutos">00</span>:<span id="segundos">00</span></p>
+                </div>
+                <div class="team">
+                    <img src="./imagens/sem-foto.png" alt="Logo Time 2" class="team-logo" id="time2_logo">
+                    <div class="team-info">
+                        <span class="team-name" id="time2_nome_exibir"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="placar">
+                <div class="container_left">
+                    <img src="./imagens/flu.png" alt="">
+                    <span class="placar-time" id="placar-flu">0</span>
+                </div>
+                <div class="container_middle">
+                    <span class="placar-text">:</span>
+                </div>
+                <div class="container_right">
+                    <span class="placar-time" id="placar-time2">0</span>
+                    <img src="./imagens/sem-foto.png" alt="" id="time2_logo_exibir">
+                </div>
+            </div>
+            <div class="gols-jogador">
+                <div class="gols-flu">
+                    <div class="title">
+                        <img src="./imagens/soccer-ball.png" alt="" style="width: 30px;">
+                        <h2>GOLS FLUMINENSE</h2>
+                    </div>
+                    <ul id="jogadores-gol-flu">
+                        
+                    </ul>
+                </div>
+                <div class="gols-time2">
+                    <div class="title">
+                        <img src="./imagens/soccer-ball.png" alt="" style="width: 30px;">
+                        <h2 id="time2_gols">GOLS</h2>
+                    </div>
+                    <ul id="jogadores-gol-time2">
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="propaganda" id="propaganda">
+        <video src="./videos/PATROCINADORES FLU TELAO.mp4"  id="propaganda-video" muted></video>
+    </div>
+    <div class="video-jogador" id="video-jogador">
+        <video src="./videos/JOAO GRILO.mp4" id="jogador-video-joao-grilo" muted class="jogador-video"></video>
+
+        
+    </div>
+    <script type ="module" src="script.js"></script>
+</body>
+</html>
