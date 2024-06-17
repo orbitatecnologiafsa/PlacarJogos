@@ -254,7 +254,7 @@ body {
     z-index: 9999;
 }
 .jogador-video{
-    width: 80%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     display: none;
 }
