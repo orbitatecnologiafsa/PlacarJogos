@@ -161,8 +161,8 @@ window.onstorage = function() {
 }
 function autoPropaganda(){
     const interval = 2 * 60 * 1000;
-    showPropaganda();
-    setInterval(showPropaganda, interval);
+    //showPropaganda();
+    //setInterval(showPropaganda, interval);
 }
 window.onload = function() {
     if (localStorage.getItem('teamData')) {
@@ -175,3 +175,8 @@ window.onload = function() {
 }
 
 autoPropaganda();
+
+
+document.getElementById('gear').addEventListener('click', function() {
+    window.open('./config.html', '_blank');
+})
