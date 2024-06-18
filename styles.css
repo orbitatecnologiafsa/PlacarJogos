@@ -64,18 +64,21 @@ body {
     padding: 10px 0;
     background-color: #222;
     width: 90%;
-    height: fit-content;
+    height: 100px;
     margin-top: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: 2px solid #fff;
+}
+.contador p{
+    font-size: 50px;
 }
 .placar{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 90%;
-    height: 450px;
+    height: 420px;
     background-color: #474646;
 }
 .container_left{
@@ -87,14 +90,14 @@ body {
     height: 100%;
 }
 .container_left span{
-    font-size: 12em
+    font-size: 16em
 }
 .container_left img{
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
 }
 .container_middle span{
-    font-size: 10em
+    font-size: 14em
 }
 
 .container_right{
@@ -107,12 +110,12 @@ body {
 }
 
 .container_right img{
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
 }
 
 .container_right span{
-    font-size: 12em
+    font-size: 16em
 }
 
 
