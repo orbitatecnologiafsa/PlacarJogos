@@ -203,6 +203,7 @@ body {
 }
 #jogadores-gol-time2 li{
     margin-top: 10px;
+    font-size: 26px;
 }
 .gols-time2{
     display: flex;
