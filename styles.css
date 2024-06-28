@@ -77,8 +77,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 90%;
-    height: 420px;
+    width: 100%;
+    height: 470px;
     background-color: #474646;
 }
 .container_left{
