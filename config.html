@@ -20,6 +20,7 @@
             align-items: center;
             justify-content: center;
             font-family: Arial, sans-serif;
+            background-color:rgb(220, 223, 224);
         }
         .main-container {
             display: flex;
@@ -64,6 +65,10 @@
             margin-bottom: 20px;
             width: 30%;
             max-width: 400px;
+        }
+        #goal-button {
+            background-color: rgba(5, 182, 93, 0.911);
+            color: white;
         }
         .buttons button {
             width: 90%;
@@ -142,7 +147,7 @@
     <div class="main-container">
         <div class="container">
             <div class="team">
-                <h2>Fluminense de Feira</h2>
+                <h2>Jogadores do Fluminense </h2>
                 <ul id="flu-players" class="players">
                     <li><input type="radio" name="player" value="joao-grilo"> Joao Grilo</li>
                     <li><input type="radio" name="player" value="alan-jr"> Alan Jr</li>
@@ -170,7 +175,7 @@
             <div class="team">
                 <h2 id="time2_nome">Time Adversario</h2>
                 <ul id="time2" class="players">
-                    <li><input type="radio" name="player" value="Gol do time adversário"> Pontuar gol</li>
+                    <li><input type="radio" name="player" value="Gol do time adversário"> Pontuar gol do adversario</li>
                 </ul>
             </div>
         </div>
@@ -182,7 +187,7 @@
             <button onclick="startSecondHalf()">Começar 2 tempo</button>
             <button onclick="pauseGame()">Pausar Jogo</button>
             <button onclick="resumeGame()">Continuar Jogo</button>
-            <button id="finalize-button" onclick="finalizeGame()">Finalizar Jogo</button>
+            <button id="finalize-button" onclick="finalizeGame()">Criar Jogo</button>
         </div>
     </div>
 
