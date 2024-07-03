@@ -6,38 +6,72 @@
     <title>Controle de Placar</title>
     <link rel="stylesheet" href="2.css">
     <style>
-        *{
+        * {
             font-size: 30px;
             font-weight: bold;
+            box-sizing: border-box;
         }
-        body{
+        body {
             width: 100%;
             height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
         }
-        .container{
+        .main-container {
+            display: flex;
             width: 100%;
             height: 100%;
-            display: flex;
             justify-content: center;
             align-items: center;
         }
-        .team{
-            width: 50%;
-            margin-right: 15px;
-        }
-        .buttons{
+        .container {
+            width: 70%;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+        }
+        .team {
+            width: 100%;
+            max-width: 600px;
+            margin: 15px;
+        }
+        .team h2 {
+            text-align: center;
+        }
+        .players {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .players li {
+            flex: 1 1 45%;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 20px;
             margin-bottom: 20px;
-            flex-direction: column;
+            width: 30%;
+            max-width: 400px;
         }
-        .buttons button{
-            width: 100%;
+        .buttons button {
+            width: 90%;
+            padding: 10px;
         }
-        .buttons button:last-child{
+        .buttons button:last-child {
             background-color: rgba(197, 17, 17, 0.784);
+            color: white;
         }
         .modal {
             display: none;
@@ -48,24 +82,21 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
+            background-color: rgba(0, 0, 0, 0.4);
         }
-
         .modal-content {
             background-color: #fefefe;
             padding: 20px;
             margin: 15% auto;
             border: 1px solid #888;
-            width: 50%;
+            width: 90%;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 50%;
-            font-size: 26px;
         }
-        .modal-header{
-            width: 80%;
+        .modal-header {
+            width: 100%;
             text-align: center;
         }
         .close {
@@ -74,25 +105,28 @@
             font-size: 28px;
             font-weight: bold;
         }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
         #newGameForm {
-            font-size: 30px;
-            font-weight: bold;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            width: 100%;
         }
-        #newGameForm input{
+        #newGameForm input {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
             border-radius: 4px;
-            box-sizing: border-box;
         }
-        #newGameForm button{
+        #newGameForm button {
             width: 100%;
             background-color: #4CAF50;
             color: white;
@@ -102,59 +136,56 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="team">
-            <h2>Fluminense de Feira</h2>
-            <ul id="flu-players">
-                <li><input type="radio" name="player" value="joao-grilo"> Joao Grilo</li>
-                <li><input type="radio" name="player" value="alan-jr"> Alan Jr</li>
-                <li><input type="radio" name="player" value="cleyton"> Cleyton</li>
-                <li><input type="radio" name="player" value="deivinho"> Deivinho</li>
-                <li><input type="radio" name="player" value="elielton"> Elielton</li>
-                <li><input type="radio" name="player" value="elivelton"> Elivelton</li>
-                <li><input type="radio" name="player" value="felipe-recife"> Felipe Recife</li>
-                <li><input type="radio" name="player" value="felipe-rocha"> Felipe Rocha</li>
-                <li><input type="radio" name="player" value="gianlucas"> Gianlucas</li>
-                <li><input type="radio" name="player" value="igor-badio"> Igor Badio</li>
-                <li><input type="radio" name="player" value="jean"> Jean</li>
-                <li><input type="radio" name="player" value="kaique"> Kaique</li>
-                <li><input type="radio" name="player" value="kaynan"> Kaynan</li>
-                <li><input type="radio" name="player" value="leo-alves"> Leo Alves</li>
-                <li><input type="radio" name="player" value="luan"> Luan</li>
-                <li><input type="radio" name="player" value="mineiro"> Mineiro</li>
-                <li><input type="radio" name="player" value="pablo"> Pablo</li>
-                <li><input type="radio" name="player" value="miguel"> Miguel</li>
-                <li><input type="radio" name="player" value="michel"> Michel</li>
-            </ul>
+    <div class="main-container">
+        <div class="container">
+            <div class="team">
+                <h2>Fluminense de Feira</h2>
+                <ul id="flu-players" class="players">
+                    <li><input type="radio" name="player" value="joao-grilo"> Joao Grilo</li>
+                    <li><input type="radio" name="player" value="alan-jr"> Alan Jr</li>
+                    <li><input type="radio" name="player" value="cleyton"> Cleyton</li>
+                    <li><input type="radio" name="player" value="deivinho"> Deivinho</li>
+                    <li><input type="radio" name="player" value="elielton"> Elielton</li>
+                    <li><input type="radio" name="player" value="elivelton"> Elivelton</li>
+                    <li><input type="radio" name="player" value="felipe-recife"> Felipe Recife</li>
+                    <li><input type="radio" name="player" value="felipe-rocha"> Felipe Rocha</li>
+                    <li><input type="radio" name="player" value="felipe-alves"> Felipe Alves</li>
+                    <li><input type="radio" name="player" value="gianlucas"> Gianlucas</li>
+                    <li><input type="radio" name="player" value="igor-badio"> Igor Badio</li>
+                    <li><input type="radio" name="player" value="jean"> Jean</li>
+                    <li><input type="radio" name="player" value="kaique"> Kaique</li>
+                    <li><input type="radio" name="player" value="kaynan"> Kaynan</li>
+                    <li><input type="radio" name="player" value="leo-alves"> Leo Alves</li>
+                    <li><input type="radio" name="player" value="luan"> Luan</li>
+                    <li><input type="radio" name="player" value="mineiro"> Mineiro</li>
+                    <li><input type="radio" name="player" value="pablo"> Pablo</li>
+                    <li><input type="radio" name="player" value="miguel"> Miguel</li>
+                    <li><input type="radio" name="player" value="michel"> Michel</li>
+                    <li><input type="radio" name="player" value="padu">Padu</li>
+                </ul>
+            </div>
+            <div class="team">
+                <h2 id="time2_nome">Time Adversario</h2>
+                <ul id="time2" class="players">
+                    <li><input type="radio" name="player" value="Gol do time adversário"> Pontuar gol</li>
+                </ul>
+            </div>
         </div>
-        <div class="team">
-            <h2 id="time2_nome">Time Adversario</h2>
-            <ul id="time2">
-                <li><input type="radio" name="player" value="Gol do time adversário"> Pontuar gol</li>
-            </ul>
+        <div class="buttons">
+            <button id="propaganda-button" onclick="mostrarPropaganda()">Mostrar Propaganda</button>
+            <button onclick="fecharPropaganda()">Fechar Propaganda</button>
+            <button id="goal-button" onclick="addGoal()">Gol</button>
+            <button onclick="startFirstHalf()">Começar 1 tempo</button>
+            <button onclick="startSecondHalf()">Começar 2 tempo</button>
+            <button onclick="pauseGame()">Pausar Jogo</button>
+            <button onclick="resumeGame()">Continuar Jogo</button>
+            <button id="finalize-button" onclick="finalizeGame()">Finalizar Jogo</button>
         </div>
-    </div>
-    <div class="buttons">
-        <button id="propaganda-button" onclick="mostrarPropaganda()">Mostrar Propaganda</button>
-        <button onclick="fecharPropaganda()">Fechar Propaganda</button>
-        <button id="goal-button" onclick="addGoal()">Gol</button>
-        <button onclick="startFirstHalf()">Começar 1 tempo</button>
-        <button onclick="startSecondHalf()">Começar 2 tempo</button>
-        <button onclick="pauseGame()">Pausar Jogo</button>
-        <button onclick="resumeGame()">Continuar Jogo</button>
-        <button id="finalize-button" onclick="finalizeGame()">Finalizar Jogo</button>
     </div>
 
-   
     <div id="newGameModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -196,6 +227,7 @@
         function resetGoal() {
             localStorage.setItem('goal', null);
         }
+
         function startFirstHalf() {
             localStorage.setItem('timerControl', 'startFirstHalf');
         }
