@@ -11,7 +11,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #474646 ;
-    height: 150vh;
+    height: 100vh;
     margin: 0;
 }
 
@@ -71,7 +71,7 @@ body {
     border-bottom: 2px solid #fff;
 }
 .contador p{
-    font-size: 70px;
+    font-size: 130px;
 }
 .placar{
     display: flex;
@@ -166,15 +166,17 @@ body {
     margin-left: 10px;
 }
 .contador{
-    background-color: white;
-    width: 35%;
+    
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 189px;;
     font-weight: bold;
-    border-radius: 5px;
-    color: black;
+  
+    color: rgb(223, 148, 9);
+    
+   
 }
 #jogadores-gol-flu{
     display: flex;
@@ -231,7 +233,7 @@ body {
 #title{
     background-color: #1F16B9;
 }
-.propaganda{
+.propaganda {
     position: fixed;
     top: 0;
     left: 0;
@@ -242,8 +244,9 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    display: flexbox;  
+    /* display: none; */ /* Remova ou ajuste essa linha conforme necessário */
 }
+
 
 .video-jogador{
     position: fixed;
